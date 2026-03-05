@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Kill Line Risk Calculator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    label { display: block; margin-top: 10px; }
+    input[type=text], select { width: 200px; }
+    .checkbox-group { margin-top: 5px; }
+    .result { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+  </style>
+</head>
+<body>
+<h1>Kill Line Risk Calculator</h1>
+<form method="post">
+  <label>Region
+    <select name="region">
+      <option value="US">US</option>
+      <option value="HK">HK</option>
+    </select>
+  </label>
+  <label>Monthly income <input type="text" name="monthly_income" /></label>
+  <label>Monthly rigid expenses <input type="text" name="monthly_rigid_expenses" /></label>
+  <label>Cash savings <input type="text" name="cash_savings" /></label>
+  <label>Total debt <input type="text" name="total_debt" /></label>
+  <label>Net assets <input type="text" name="net_assets" /></label>
+
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="has_medical_insurance" /> Has medical insurance</label>
+    <label><input type="checkbox" name="has_unemployment_insurance" /> Has unemployment insurance (US only)</label>
+    <label><input type="checkbox" name="is_negative_equity" /> Negative equity (HK only)</label>
+    <label><input type="checkbox" name="has_domestic_helper" /> Domestic helper (HK only)</label>
+    <label><input type="checkbox" name="children_in_private_school" /> Children in private school (HK only)</label>
+  </div>
+
+  <button type="submit">Calculate</button>
+</form>
+
+{% if result %}
+<div class="result">
+  <strong>Risk level:</strong> {{ result.risk_level }}<br />
+  <strong>Trigger factors:</strong>
+  <ul>
+  {% for f in result.trigger_factors %}
+    <li>{{ f }}</li>
+  {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+</body>
+</html>
